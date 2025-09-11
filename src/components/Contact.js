@@ -10,7 +10,7 @@ function Contact() {
           ></img>
         </a>
         <a href="https://www.linkedin.com/in/pablovicho/" target="_blank" rel="noreferrer">
-          <img className="logo" alt="linkedin" src="linkedin.png"></img>
+          <img className="logo linkedin" alt="linkedin" src="linkedin.png"></img>
         </a>
       </div>
     )

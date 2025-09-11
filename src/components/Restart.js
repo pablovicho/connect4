@@ -19,19 +19,14 @@ function Restart() {
   };
 
   return (
-    <main style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-      <button className="restart" onClick={(e) => Restart(e)}>
-        Restart
+    <main style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', gap: '2rem'}}>
+      <button className="btn btn-primary" onClick={(e) => Restart(e)}>
+        Reiniciar
       </button>
       <button onClick={() => resetScore()}
-      style={{  backgroundColor: '#023047',
-        borderRadius: '7px',
-        padding: '5px',
-        color: '#fdf2f2',
-        fontSize: '18px',
-      marginLeft: '20px'}}
+      className="btn btn-secondary"
       >
-        Reset Score
+        Borrar Puntaje
       </button>
     </main>
   );

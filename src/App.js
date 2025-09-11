@@ -11,7 +11,6 @@ import PlayerTurn from "./components/PlayerTurn";
 //player 1 = 1
 //player 2 = 2
 //no player = 0
-
 function App() {
   const winner = useStore((state) => state.winner);
 
@@ -19,11 +18,11 @@ function App() {
     <main>
       <PlayerTurn />
 
-      {winner > 0 && <PopUpMessage />}
+      {winner > 0 && <PopUpMessage className="transition duration-300 ease-in-out " />}
 
       <Matrix />
-      <div className="downThingy">
-        <h1 className="title">Connect4</h1>
+      <div className="title">
+        <h1 className="titleName">Conecta 4</h1>
       </div>
       <Restart />
       <Contact />

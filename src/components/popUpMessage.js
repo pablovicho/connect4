@@ -1,39 +1,65 @@
+import { useEffect, useRef, useState } from 'react';
 import useStore from "../utils/store";
 
+export function PopUpMessage() {
+  const dialogRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const winner = useStore((state) => state.winner);
+  const resetPlayer = useStore((state) => state.resetPlayer);
+  const resetWinner = useStore((state) => state.resetWinner);
+  const resetMatrix = useStore((state) => state.resetMatrix);
+  const player1Win = useStore((state) => state.player1Win);
+  const player2Win = useStore((state) => state.player2Win);
 
-export function PopUpMessage () {
-  const colorClass = ["white", "#fdca40", "#df2935"];
+  useEffect(() => {
+    if (winner > 0) {
+      setIsOpen(true);
+      const dialog = dialogRef.current;
+      dialog.showModal();
+    } else {
+      setIsOpen(false);
+    }
+  }, [winner]);
 
-  const resetPlayer = useStore((state) => state.resetPlayer)
-  const resetWinner = useStore((state) => state.resetWinner)
-  const resetMatrix = useStore((state) => state.resetMatrix)
-  const player1Win = useStore((state) => state.player1Win)
-  const player2Win = useStore((state) => state.player2Win)
-  const winner = useStore((state) => state.winner)
-
-  if(winner === 0) return null;
-
-  const Restart = (e) => {
+  const handleClose = (e) => {
     e.preventDefault();
-    if(winner === 1) player1Win();
-    if(winner === 2) player2Win();
+    if (winner === 1) player1Win();
+    if (winner === 2) player2Win();
     resetMatrix();
     resetPlayer();
     resetWinner();
+    setIsOpen(false);
+    dialogRef.current?.close();
   };
 
+  if (winner === 0) return null;
+
   return (
-    <div style={{position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-      <div style={{backgroundColor: 'white', padding: '20px', borderRadius: '10px', boxShadow: '0px 3px 16px rgba(0,0,0,0.5)', textAlign: 'center'}}>
-        <h2 style={{fontSize: '1.2rem', marginBottom: '10px', padding: '10px', borderRadius: '8px', backgroundColor: colorClass[winner]}}>
-          Player {winner} wins!
-        </h2>
-        <button
-          style={{backgroundColor: '#3f51b5', color: 'white', border: 0, borderRadius: '5px', padding: '10px 20px', fontWeight: 'bold'}}
-          onClick={(e) => Restart(e)}
-        > Restart
-        </button>
+    <dialog 
+      ref={dialogRef}
+      className="dialog"
+    >
+      <div className="dialog-content">
+        <div className="dialog-header">
+          <h2> ¡Jugador {winner} gana el juego!</h2>
+        </div>
+        <div className="dialog-body">
+          <div className="">
+            <div className="">
+              🏆
+            </div>
+          </div>
+        </div>
+        <div className="dialog-footer">
+          <button 
+            onClick={(e) => handleClose(e)}
+            className="btn btn-primary"
+            autoFocus
+          >
+            Reiniciar
+          </button>
+        </div>
       </div>
-    </div>
-  )
-};
+    </dialog>
+  );
+}
