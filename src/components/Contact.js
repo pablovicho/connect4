@@ -5,12 +5,12 @@ function Contact() {
           <img
             className="logo"
             alt="github"
-            src="github.png"
+            src="/github.png"
             style={{ height: "45px" }}
           ></img>
         </a>
         <a href="https://www.linkedin.com/in/pablovicho/" target="_blank" rel="noreferrer">
-          <img className="logo linkedin" alt="linkedin" src="linkedin.png"></img>
+          <img className="logo linkedin" alt="linkedin" src="/linkedin.png"></img>
         </a>
       </div>
     )

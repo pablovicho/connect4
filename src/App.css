@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+.no-style {
+  all: unset;
+}
+
+.no-style:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.no-style:focus {
+  outline: none;
+}
