@@ -68,7 +68,6 @@ const MatrixMulti = ({ gameId }) => {
         checkWinner();
       }
     } finally {
-      // Allow next click after processing completes
       isSubmittingRef.current = false;
     }
   };

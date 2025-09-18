@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { PopUpMessage } from "../components/popUpMessage";
 import { useParams } from "react-router-dom";
 import Return from '../components/Return';
-import Contact from '../components/Contact';
+
 export default function Multiplayer() {
     const winner = useStore((state) => state.winner);
     const gameId = useStore((state) => state.gameId);
