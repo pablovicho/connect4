@@ -5,9 +5,11 @@ import SinglePlayer from "./pages/SinglePlayer";
 import Multiplayer from "./pages/Multiplayer";
 import CreateGame from "./pages/CreateGame";
 import JoinGame from "./pages/JoinGame";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
   return (
+    <ErrorBoundary fallback={<p>⚠️ Hubo un error al cargar la página</p>}>
     <Router>
       <main>
         <Switch>
@@ -22,6 +24,7 @@ function App() {
         </Switch>
       </main>
     </Router>
+    </ErrorBoundary>
   );
 }
 
