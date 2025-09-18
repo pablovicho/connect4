@@ -3,15 +3,18 @@ import PlayerTurn from "../components/PlayerTurn";
 import MatrixMulti from "../components/MatrixMulti";
 import { useEffect } from "react";
 import { PopUpMessage } from "../components/popUpMessage";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import Return from '../components/Return';
+import { supabase } from "../utils/supabaseClient";
 
 export default function Multiplayer() {
     const winner = useStore((state) => state.winner);
     const gameId = useStore((state) => state.gameId);
     const params = useParams();
+    const location = useLocation();
     const thisGamePlayer = useStore((state) => state.thisGamePlayer);    
 
+    // Store actions for reset
     const resetPlayer = useStore((state) => state.resetPlayer);
     const resetWinner = useStore((state) => state.resetWinner);
     const resetMatrix = useStore((state) => state.resetMatrix);
@@ -28,17 +31,44 @@ export default function Multiplayer() {
     };
     
     useEffect(() => {
-        // Set gameId from params if not already set (for player 2 joining via link)
         if (!gameId && params.gameId) {
             useStore.setState({gameId: params.gameId});
         }
         
-        // Set player from localStorage if not set
-        if(thisGamePlayer === null) {
-            const storedPlayer = Number(localStorage.getItem('thisGamePlayer'));
-            useStore.setState({thisGamePlayer: Number(storedPlayer)});
+        // Derive player slot from query string (?p=1|2) when not set yet
+        if (thisGamePlayer === null) {
+            const search = new URLSearchParams(location.search);
+            const p = Number(search.get('p'));
+            if (p === 1 || p === 2) {
+                useStore.setState({ thisGamePlayer: p });
+            }
         }
-    }, [gameId, params.gameId, thisGamePlayer]);
+
+        // Server-based fallback: if still not set and we have a gameId, infer open slot from players table
+        if ((thisGamePlayer === null) && (params.gameId || gameId)) {
+            (async () => {
+                const gid = params.gameId || gameId;
+                try {
+                    const { data, error } = await supabase
+                        .from('players')
+                        .select('slot')
+                        .eq('game_id', gid);
+                    if (error) return;
+                    const slots = (data || []).map(r => r.slot);
+                    if (slots.length === 1) {
+                        const taken = slots[0];
+                        if (taken === 1) useStore.setState({ thisGamePlayer: 2 });
+                        else if (taken === 2) useStore.setState({ thisGamePlayer: 1 });
+                    }
+                    else if (slots.length === 0) {
+                        useStore.setState({ thisGamePlayer: 1 });
+                    }
+                } catch (_) {
+                    // ignore
+                }
+            })();
+        }
+    }, [gameId, params.gameId, thisGamePlayer, location.search]);
   
     return (
       <>

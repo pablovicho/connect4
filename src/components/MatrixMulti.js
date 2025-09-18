@@ -18,8 +18,7 @@ const MatrixMulti = ({ gameId }) => {
   const isSubmittingRef = useRef(false);
 
   useEffect(() => {
-    // Only set up subscription if we have both gameId and player info
-    if (!gameId || thisGamePlayer === null) {
+    if (!gameId) {
       return;
     }
     
@@ -29,7 +28,7 @@ const MatrixMulti = ({ gameId }) => {
       // console.log(`MatrixMulti: Cleaning up subscription for gameId ${gameId}`);
       subscription.unsubscribe();
     };
-  }, [gameId, thisGamePlayer, handleGameUpdate]);
+  }, [gameId, handleGameUpdate]);
 
   const handleClick = async (e, row) => {
     e.preventDefault();

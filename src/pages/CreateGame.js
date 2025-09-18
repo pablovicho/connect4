@@ -16,8 +16,6 @@ export default function CreateGame() {
         const gameUrl = `${window.location.origin}/join/${newGameId}`;
         await navigator.clipboard.writeText(gameUrl);
         setIsCopied(true);
-        useStore.setState({thisGamePlayer: 1});
-        localStorage.setItem('thisGamePlayer', 1);
       } catch (error) {
         console.error('Error creating game:', error);
       }
@@ -36,7 +34,7 @@ export default function CreateGame() {
   }, [isCopied]);
 
   const handleStartGame = () => {
-    history.push(`/game/${gameId}`);
+    history.push(`/game/${gameId}?p=1`);
   };
 
   return (

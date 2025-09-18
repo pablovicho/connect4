@@ -15,10 +15,9 @@ export default function JoinGame() {
         await joinGame(gameId);
         setIsJoining(false);
         useStore.setState({thisGamePlayer: 2});
-        localStorage.setItem('thisGamePlayer', 2);
-        // Automatically redirect to the game after a short delay
+        // Automatically redirect to the game after a short delay, carry slot in query
         setTimeout(() => {
-          history.push(`/game/${gameId}`);
+          history.push(`/game/${gameId}?p=2`);
         }, 2000);
       } catch (error) {
         console.error('Error joining game:', error);
