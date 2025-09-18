@@ -23,7 +23,7 @@ function subscribeToGame(gameId, onUpdate) {
         onUpdate(payload.new);
       }
     )
-    .subscribe((status, err) => {
+    .subscribe(async (status, err) => {
       // console.log(`Subscription status for game ${gameId}:`, status);
       
       if (err) {
@@ -44,6 +44,21 @@ function subscribeToGame(gameId, onUpdate) {
       
       if (status === 'SUBSCRIBED') {
         console.log(`✅ Successfully subscribed to game ${gameId}`);
+        // Immediately hydrate current state for late joiners
+        try {
+          const { data, error } = await supabase
+            .from('games')
+            .select('board, turn')
+            .eq('id', gameId)
+            .single();
+          if (!error && data) {
+            onUpdate({ board: data.board, turn: data.turn });
+          } else if (error) {
+            console.error('Hydration fetch error:', error);
+          }
+        } catch (fetchErr) {
+          console.error('Hydration fetch exception:', fetchErr);
+        }
       } else if (status === 'CHANNEL_ERROR') {
         console.error(`❌ Channel error for game ${gameId}`);
       } else if (status === 'TIMED_OUT') {
