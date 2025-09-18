@@ -1,5 +1,6 @@
   //diagonal check!!
   function reverseDiagonal(matrix) {
+    if(!matrix) return;
     let xWin = false;
     let yWin = false;
 

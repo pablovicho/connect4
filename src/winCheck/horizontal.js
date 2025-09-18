@@ -1,4 +1,5 @@
 function horizontal(matrix) {
+    if(!matrix) return;
     //horizontal check
     let xWin = false;
     let yWin = false;

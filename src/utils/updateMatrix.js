@@ -1,4 +1,4 @@
-const updateMatrix = (matrix, column, value, row) => {
+const matrixUpdated = (matrix, column, value, row) => {
   let flagged = false
 
   const updateCol = (element) => { //this changes only the first element that is a 0
@@ -25,4 +25,4 @@ const updateMatrix = (matrix, column, value, row) => {
   return newMatrix
 }
 
-  export default updateMatrix
+  export default matrixUpdated

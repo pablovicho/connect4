@@ -1,0 +1,48 @@
+import { useRef, useState, useEffect } from 'react';
+import joinGame from "../utils/joinGame";
+import createGame from "../utils/createGame";
+import { useHistory } from 'react-router-dom';
+
+export function PopUpMultiplayer({ gameId }) {
+  const dialogRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(true)
+  const message = gameId ? "Comparte el vínculo con tu amigo/a para iniciar el juego" : "Iniciar juego";
+  const url = window.location.href + "/multiplayer/" + gameId;
+  const history = useHistory();
+
+  const handleClose = (e) => {
+    e.preventDefault();
+    history.push("/multiplayer/" + gameId);
+    setIsOpen(false);
+    dialogRef.current?.close();
+  };
+
+  return (
+    <dialog 
+      ref={dialogRef}
+      className="dialog"
+    >
+      <div className="dialog-content">
+        <div className="dialog-header">
+          <h2> {message}</h2>
+        </div>
+        <div className="dialog-body">
+          <div className="">
+            <button className="no-style" onClick={() => navigator.clipboard.writeText(url)}>
+              {url}
+            </button>
+          </div>
+        </div>
+        <div className="dialog-footer">
+          <button 
+            onClick={(e) => handleClose(e)}
+            className="btn btn-primary"
+            autoFocus
+          >
+            Iniciar
+          </button>
+        </div>
+      </div>
+    </dialog>
+  );
+}

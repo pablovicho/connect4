@@ -1,32 +1,55 @@
-import useStore from "./utils/store";
-
+import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
 import "./App.css";
-
-import { PopUpMessage } from "./components/popUpMessage";
-import Restart from "./components/Restart";
 import Contact from "./components/Contact";
-import Matrix from "./components/Matrix";
-import PlayerTurn from "./components/PlayerTurn";
+import SinglePlayer from "./pages/SinglePlayer";
+import Multiplayer from "./pages/Multiplayer";
+import CreateGame from "./pages/CreateGame";
+import JoinGame from "./pages/JoinGame";
+import ErrorBoundary from "./components/ErrorBoundary";
 
-//player 1 = 1
-//player 2 = 2
-//no player = 0
 function App() {
-  const winner = useStore((state) => state.winner);
+  return (
+    <ErrorBoundary fallback={<p>⚠️ Hubo un error al cargar la página</p>}>
+    <Router>
+      <main>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+            <Contact />
+          </Route>
+          <Route path="/single" component={SinglePlayer} />
+          <Route path="/create-game" component={CreateGame} />
+          <Route path="/game/:gameId" component={Multiplayer} />
+          <Route path="/join/:gameId" component={JoinGame} />
+        </Switch>
+      </main>
+    </Router>
+    </ErrorBoundary>
+  );
+}
+
+function Home() {
+  const history = useHistory();
 
   return (
-    <main>
-      <PlayerTurn />
-
-      {winner > 0 && <PopUpMessage className="transition duration-300 ease-in-out " />}
-
-      <Matrix />
+    <div className="menu">
       <div className="title">
         <h1 className="titleName">Conecta 4</h1>
       </div>
-      <Restart />
-      <Contact />
-    </main>
+      <img src="/logo512.png" alt="logo" style={{ height: "20rem" }} />
+      <button 
+        className="btn btn-primary" 
+        onClick={() => history.push('/single')}
+      >
+        Solitario
+      </button>
+      <button 
+        className="btn btn-secondary" 
+        onClick={() => history.push('/create-game')}
+      >
+        Multijugador
+      </button>
+    </div>
   );
 }
 
