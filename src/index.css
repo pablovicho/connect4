@@ -477,3 +477,42 @@ dialog[open] .dialog-content {
   border-style: solid;
   border-color: #333 transparent transparent transparent;
 }
+
+/* dialog */
+.dialog::backdrop { 
+  background: rgba(0,0,0,0.35); 
+}
+
+.dialog { 
+  border: none; 
+  padding: 0; 
+  background: transparent; }
+
+.dialog-content { 
+  position: relative; 
+  border-radius: .5rem; 
+  padding: 1rem 1.25rem; 
+  background: var(--background); 
+}
+
+.dialog-header { 
+  display: flex; 
+  justify-content: 
+  space-between; 
+  align-items: center; 
+}
+
+.dialog-close { 
+  border: 0; 
+  background: transparent; 
+  font-size: 1.25rem; 
+  cursor: pointer; 
+  position: absolute;
+  top: -0.2rem;
+  right: 0rem;
+}
+
+.dialog-close:hover { 
+  opacity: .9; 
+  transform: scale(1.05); 
+}

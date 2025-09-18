@@ -11,6 +11,21 @@ export default function Multiplayer() {
     const gameId = useStore((state) => state.gameId);
     const params = useParams();
     const thisGamePlayer = useStore((state) => state.thisGamePlayer);    
+
+    const resetPlayer = useStore((state) => state.resetPlayer);
+    const resetWinner = useStore((state) => state.resetWinner);
+    const resetMatrix = useStore((state) => state.resetMatrix);
+    const player1Win = useStore((state) => state.player1Win);
+    const player2Win = useStore((state) => state.player2Win);
+
+    const handleReset = (e) => {
+      e.preventDefault();
+      if (winner === 1) player1Win();
+      if (winner === 2) player2Win();
+      resetMatrix();
+      resetPlayer();
+      resetWinner();
+    };
     
     useEffect(() => {
         // Set gameId from params if not already set (for player 2 joining via link)
@@ -29,6 +44,13 @@ export default function Multiplayer() {
       <>
         <PlayerTurn />
         {winner > 0 && <PopUpMessage className="transition duration-300 ease-in-out" />}
+        {winner > 0 && (
+          <div style={{ display: 'flex', justifyContent: 'center', margin: '0.5rem 0' }}>
+            <button className="btn btn-secondary" onClick={handleReset}>
+              Reiniciar
+            </button>
+          </div>
+        )}
         <MatrixMulti gameId={gameId} />
         <div className="title">
           <Return />

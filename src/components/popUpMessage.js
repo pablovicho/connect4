@@ -32,6 +32,18 @@ export function PopUpMessage() {
     dialogRef.current?.close();
   };
 
+  const handleDismiss = (e) => {
+    e.preventDefault();
+    setIsOpen(false);
+    dialogRef.current?.close();
+  };
+
+  const handleBackdropClick = (e) => {
+    if (e.target === dialogRef.current) {
+      handleDismiss(e);
+    }
+  };
+
   if (winner === 0) return null;
 
   return (
@@ -39,10 +51,19 @@ export function PopUpMessage() {
       ref={dialogRef}
       className="dialog"
       open={isOpen}
+      onClick={handleBackdropClick}
     >
       <div className="dialog-content">
         <div className="dialog-header">
           <h2> ¡Jugador {winner} gana el juego!</h2>
+          <button
+            type="button"
+            className="dialog-close"
+            aria-label="Cerrar"
+            onClick={(e) => handleDismiss(e)}
+          >
+            ×
+          </button>
         </div>
         <div className="dialog-body">
           <div className="">
