@@ -4,7 +4,8 @@ import MatrixMulti from "../components/MatrixMulti";
 import { useEffect } from "react";
 import { PopUpMessage } from "../components/popUpMessage";
 import { useParams } from "react-router-dom";
-
+import Return from '../components/Return';
+import Contact from '../components/Contact';
 export default function Multiplayer() {
     const winner = useStore((state) => state.winner);
     const gameId = useStore((state) => state.gameId);
@@ -30,6 +31,7 @@ export default function Multiplayer() {
         {winner > 0 && <PopUpMessage className="transition duration-300 ease-in-out" />}
         <MatrixMulti gameId={gameId} />
         <div className="title">
+          <Return />
           <h1 className="titleName">Conecta 4</h1>
         </div>
       </>

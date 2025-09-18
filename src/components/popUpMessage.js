@@ -38,6 +38,7 @@ export function PopUpMessage() {
     <dialog 
       ref={dialogRef}
       className="dialog"
+      open={isOpen}
     >
       <div className="dialog-content">
         <div className="dialog-header">

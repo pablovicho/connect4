@@ -1,6 +1,7 @@
 /* eslint-disable no-loop-func */
 import column from "../utils/column";
 function vertical(matrix) {
+  if(!matrix) return;
     let xWin = false;
     let yWin = false;
     for (let i = 0; i < 7; i++) {

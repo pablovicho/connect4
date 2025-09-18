@@ -11,7 +11,7 @@ function TestConnection() {
           .limit(1);
         
         if (error) throw error;
-        console.log('Connection successful! Data:', data);
+        // console.log('Connection successful! Data:', data);
       } catch (error) {
         console.error('Connection failed:', error);
       }

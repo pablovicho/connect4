@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
 import Circle from "./Circle";
 import useStore from "../utils/store";
 import column from "../utils/column";
@@ -9,70 +9,82 @@ import matrixUpdated from '../utils/updateMatrix';
 const MatrixMulti = ({ gameId }) => {
   const {winner, matrix, updateMatrix, changePlayer, checkWinner, player, thisGamePlayer} = useStore();
   const handleGameUpdate = useCallback((data) => {
-    console.log('Updating matrix from subscription:', data);
-    useStore.setState({ matrix: data.matrix });
+    // console.log('Updating matrix from subscription:', data);
+    useStore.setState({ matrix: data.board });
+    useStore.setState({ player: data.turn });
     checkWinner();
   }, [checkWinner]);
 
+  const isSubmittingRef = useRef(false);
+
   useEffect(() => {
     // Only set up subscription if we have both gameId and player info
-    if (!gameId) {
-      console.log('MatrixMulti: No gameId, skipping subscription');
+    if (!gameId || thisGamePlayer === null) {
       return;
     }
     
-    if (thisGamePlayer === null) {
-      console.log('MatrixMulti: No player info yet, will retry when available');
-      return;
-    }
-    
-    console.log(`MatrixMulti: Setting up subscription for gameId ${gameId}, player ${thisGamePlayer}`);
     const subscription = subscribeToGame(gameId, handleGameUpdate);
   
     return () => {
-      console.log(`MatrixMulti: Cleaning up subscription for gameId ${gameId}`);
+      // console.log(`MatrixMulti: Cleaning up subscription for gameId ${gameId}`);
       subscription.unsubscribe();
     };
   }, [gameId, thisGamePlayer, handleGameUpdate]);
 
   const handleClick = async (e, row) => {
     e.preventDefault();
-    // Only allow move if it's this player's turn
     if (player !== thisGamePlayer) return;
-    
+    // debounce
+    if (isSubmittingRef.current) return;
+
     const col = column(matrix, row);
+    // if column is full, return
+    if(col.every((element) => element !== 0)) return;
 
-    // Update local state
-    updateMatrix(col, player, row);
-    const newMatrix = matrixUpdated(matrix, col, player, row);
-    
-    // Update server state
-    const newPlayer = player === 1 ? 2 : 1;
-    const { error } = await supabase
-      .from('games')
-      .update({ 
-        board: newMatrix,
-        turn: newPlayer,
-        updated_at: new Date().toISOString()
-      })
-      .eq('id', gameId);
+    try {
+      isSubmittingRef.current = true;
 
-    if (error) {
-      console.error('Error updating game:', error);
-      return;
-    } else {      
-      // Update local player state
-      changePlayer();
-      checkWinner();
+      // Update local state
+      updateMatrix(col, player, row);
+      const newMatrix = matrixUpdated(matrix, col, player, row);
+      
+      // Update server state
+      const newPlayer = player === 1 ? 2 : 1;
+      const { error } = await supabase
+        .from('games')
+        .update({ 
+          board: newMatrix,
+          turn: newPlayer,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', gameId);
+
+      if (error) {
+        console.error('Error updating game:', error);
+        return;
+      } else {      
+        // Update local player state
+        changePlayer();
+        checkWinner();
+      }
+    } finally {
+      // Allow next click after processing completes
+      isSubmittingRef.current = false;
     }
   };
+
+  if(!matrix) return (
+    <div className="matrix">
+      <p>Loading...</p>
+    </div>
+  )
 
   return (
     <div className="matrix">
       {matrix
         .map((row, rowIndex) => {
           return row.map((element, colIndex) => {
-            const isClickable = winner === 0 && player === thisGamePlayer;
+            const isClickable = winner === 0 && player === thisGamePlayer && !isSubmittingRef.current;
             
             return (
               <div 

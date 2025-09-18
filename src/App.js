@@ -13,13 +13,13 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Home />
+            <Contact />
           </Route>
           <Route path="/single" component={SinglePlayer} />
           <Route path="/create-game" component={CreateGame} />
           <Route path="/game/:gameId" component={Multiplayer} />
           <Route path="/join/:gameId" component={JoinGame} />
         </Switch>
-        <Contact />
       </main>
     </Router>
   );

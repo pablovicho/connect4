@@ -1,7 +1,7 @@
 import { supabase } from "./supabaseClient";
 
 function subscribeToGame(gameId, onUpdate) {
-  console.log('Subscribing to game:', gameId);
+  // console.log('Subscribing to game:', gameId);
   
   const channel = supabase
     .channel(`game:${gameId}`, {
@@ -19,12 +19,12 @@ function subscribeToGame(gameId, onUpdate) {
         filter: `id=eq.${gameId}`
       },
       (payload) => {
-        console.log('Change received:', payload);
+        // console.log('Change received:', payload);
         onUpdate(payload.new);
       }
     )
     .subscribe((status, err) => {
-      console.log(`Subscription status for game ${gameId}:`, status);
+      // console.log(`Subscription status for game ${gameId}:`, status);
       
       if (err) {
         console.error('Subscription error:', err);
@@ -32,10 +32,6 @@ function subscribeToGame(gameId, onUpdate) {
         // Handle specific Cloudflare/WebSocket errors
         if (err.message && err.message.includes('__cf_bm')) {
           console.error('Cloudflare bot management is blocking the connection. This is common in development.');
-          console.log('Possible solutions:');
-          console.log('1. Check if your Supabase project settings allow localhost');
-          console.log('2. Try using a different network or VPN');
-          console.log('3. Contact Supabase support to whitelist your domain');
           
           // Attempt to retry subscription after a delay
           setTimeout(() => {
@@ -76,9 +72,6 @@ function subscribeToGame(gameId, onUpdate) {
   return {
     channel, // Expose channel for debugging
     unsubscribe: () => {
-      console.log('Unsubscribing from channel');
-      
-      // Clear monitoring interval if it exists
       if (channel._monitorInterval) {
         clearInterval(channel._monitorInterval);
       }

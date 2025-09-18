@@ -1,5 +1,6 @@
   //diagonal check!!
   function diagonal(matrix) {
+    if(!matrix) return;
     let xWin = false;
     let yWin = false;
     for (let j = 0; j < 6; j++) {

@@ -149,6 +149,8 @@ main {
   border-color: var(--background);
   border-width: 0.5px;
   color: var(--pale-blue);
+  display: flex;
+  flex-direction: row;
 }
 
 .titleName {
@@ -163,14 +165,65 @@ main {
   justify-content: flex-end;
   align-self: flex-end;
   align-items: center;
-  border-top: -30px;
-  margin-right: 0.4rem;
-  margin-top: 0.8rem;
 }
 
 .logo {
   width: auto;
   height: 30px;
+}
+
+.return {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.returnContact {
+  display: flex;
+  justify-content: space-between;
+  width: 85%;
+}
+
+.back-button {
+  background-color: var(--aqua);
+  opacity: 0.5;
+  border: none;
+  border-radius: 0.3rem;
+  margin-left: -2.3rem;
+  margin-bottom: -0.2rem;
+  padding: 0.1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease, opacity 0.15s ease, transform 0.15s ease, height 0.15s ease, width 0.15s ease;
+  transform-origin: left center;
+}
+
+.back-button-img {
+  height: 1.2rem;
+  display: block;
+  transition: transform 0.15s ease;
+  padding: 0.1rem;
+}
+
+.back-button:hover {
+  opacity: 0.8;
+  background-color: var(--dark-aqua);
+  transform: translateX(-10px) scale(1.25);
+}
+
+.back-button:hover .back-button-img {
+  transform: scale(1.15);
+}
+
+.back-button:focus {
+  outline: none;
+}
+
+.back-button:active {
+  transform: translateX(3px);
 }
 
 @keyframes rebota {

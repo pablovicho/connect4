@@ -15,6 +15,7 @@ export const testRealtimeConnection = async () => {
     // Test basic Supabase connection
     console.log('1. Testing basic Supabase connection...');
     const { data, error } = await supabase.from('games').select('*').limit(1);
+    console.log('Data:', data);
     
     if (error) {
       results.errors.push(`Database connection failed: ${error.message}`);
