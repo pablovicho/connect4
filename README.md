@@ -1,4 +1,7 @@
-# This is a Connect 4 game made from scratch in React (state management with Zustand)
+# This is a Connect 4 game made from scratch in React 
 
-**Known issues:** <br>
-*20-Jun-23*: - Animation overlap when a player wins
+**Features:** <br>
+- State management with Zustand
+- Multiplayer with supabase webhooks and tables
+- Animations and dialogs
+
