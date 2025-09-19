@@ -1,0 +1,58 @@
+.winner {
+    align-self: center;
+  }
+  
+  .player1 {
+    color: #fdca40;
+    align-self: center;
+  }
+  
+  .player2 {
+    color: var(--red);
+    align-self: center;
+  }
+  
+  .restart {
+    background-color: #023047;
+    border-radius: 7px;
+    padding: 5px;
+    color: #fdf2f2;
+    font-size: 20px;
+  }
+  
+  .smallYellow {
+    background-color: #fdca40;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+  }
+  
+  .smallRed {
+    background-color: var(--red);
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+  }
+  
+  .smallWhite {
+    background-color: var(--white);
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+  }
+  
+  .matrix {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-gap: 0px;
+    background-color: var(--black);
+    width: fit-content;
+    height: fit-content;
+    margin: 0.2rem;
+    padding: 1rem;
+    border-radius: 5px;
+  }

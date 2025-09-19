@@ -6,6 +6,7 @@ import { PopUpMessage } from "../components/popUpMessage";
 import { useParams, useLocation } from "react-router-dom";
 import Return from '../components/Return';
 import { supabase } from "../utils/supabaseClient";
+import '../styles/board.css';
 
 export default function Multiplayer() {
     const winner = useStore((state) => state.winner);

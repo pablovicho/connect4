@@ -1,7 +1,6 @@
-import { useRef, useState, useEffect } from 'react';
-import joinGame from "../utils/joinGame";
-import createGame from "../utils/createGame";
+import { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import "../styles/dialog.css";
 
 export function PopUpMultiplayer({ gameId }) {
   const dialogRef = useRef(null);

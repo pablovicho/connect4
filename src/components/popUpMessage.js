@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import useStore from "../utils/store";
+import "../styles/dialog.css";
 
 export function PopUpMessage() {
   const dialogRef = useRef(null);
@@ -78,7 +79,7 @@ export function PopUpMessage() {
             className="btn btn-primary"
             autoFocus
           >
-            Reiniciar
+            Jugar de nuevo
           </button>
         </div>
       </div>

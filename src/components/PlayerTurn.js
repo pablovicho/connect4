@@ -1,5 +1,6 @@
 import SmallCircle from "./SmallCircle"
 import useStore from "../utils/store"
+import '../styles/turn.css'
 
 function PlayerTurn () {
     const player1 = useStore((state) => state.player1)

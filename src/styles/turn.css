@@ -1,0 +1,40 @@
+/* Turn */
+.turn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0rem 0.5rem 0rem 0rem;
+    color: #023047;
+    padding-top: 0px;
+    background-color: var(--aqua);
+  }
+  
+  .playerTurn {
+    background-color: var(--aqua);
+    border-radius: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    border-style: solid;
+    border-color: var(--darker-aqua);
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .score {
+    font-weight: bold;
+    font-size: 1.5rem;
+    background-color: var(--aqua);
+    padding: 5px;
+    width: 1.7rem;
+    display: inline-block;
+    border-radius: 100%;
+    margin: 0.3rem 0rem 0.3rem 0.3rem;
+    color: var(--black);
+  }
+  
+  .name {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: var(--aqua);
+  }

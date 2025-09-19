@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import createGame from '../utils/createGame';
-import useStore from '../utils/store';
+import '../styles/createGame.css';
 
 export default function CreateGame() {
   const history = useHistory();
@@ -48,7 +48,7 @@ export default function CreateGame() {
           <p>¡Juego creado exitosamente!</p>
           <p>Comparte este enlace con tu amigo/a:</p>
           <div className="game-link">
-            <button className="btn btn-primary" onClick={() => {
+            <button className="btn btn-primary standard-width" onClick={() => {
               navigator.clipboard.writeText(`${window.location.origin}/join/${gameId}`);
               setIsCopied(true);
             }}>
@@ -58,12 +58,14 @@ export default function CreateGame() {
               <span className="copy-tooltip">¡Enlace copiado!</span>
             )}
           </div>
-          <button className="btn btn-join" onClick={handleStartGame}>
+          <button className="btn btn-complimentary standard-width" onClick={handleStartGame}>
             Iniciar Juego
           </button>
         </div>
       ) : (
-        <p>Creando juego...</p>
+        <div className="new-game-container">
+          <p>Creando juego...</p>
+        </div>
       )}
     </div>
   );
