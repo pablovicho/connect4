@@ -1,0 +1,68 @@
+
+.rules {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--aqua);
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 1px 6px rgba(0.2, 0.2, 0.2, 0.2);
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    width: 21rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.rules ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--black);
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    list-style-position: inside;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+    
+.about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.rules h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0.5rem;
+    padding: 0;
+    text-align: center;
+    color: var(--black);
+}
+
+.gracias {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0.5rem;
+    padding: 0;
+    text-align: center;
+    color: var(--black);
+}
+    
