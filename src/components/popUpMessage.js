@@ -56,7 +56,11 @@ export function PopUpMessage() {
     >
       <div className="dialog-content">
         <div className="dialog-header">
-          <h2> ¡Jugador {winner} gana el juego!</h2>
+          {winner === 3 ? (
+            <h2 className="empate"> ¡Empate!</h2>
+          ) : (
+            <h2> ¡Jugador {winner} gana el juego!</h2>
+          )}
           <button
             type="button"
             className="dialog-close"
