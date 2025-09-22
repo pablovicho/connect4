@@ -51,3 +51,104 @@
     border-style: solid;
     border-color: #333 transparent transparent transparent;
   }
+
+  .createGame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    padding: 1rem;
+    border-radius: 1rem;
+    gap: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .createGame .main-logo {
+    margin-bottom: 0rem;
+    width: auto;
+    height: 20rem;
+    margin-top: 0rem;
+  }
+
+
+@media (700px <= width < 1024px) {
+  .createGame {
+    margin: -1rem;
+    display: grid;
+    grid-template-columns: 1fr minmax(20%, 80%) 1fr; /* left | center | right */
+    min-height: 110vh;
+    width: 110%;
+
+    background: linear-gradient(
+      to right,
+      var(--darker-aqua) 0%,
+      var(--darker-aqua) 20%,
+      transparent 20%,
+      transparent 80%,
+      var(--darker-aqua) 80%,
+      var(--darker-aqua) 100%
+    );
+  }
+  
+  /* Place all direct children in the center column */
+  .createGame > * {
+    grid-column: 2;
+    /* margin: -15rem 0rem; */
+  }
+
+  .createGame {
+    margin-top: -5rem;
+    height: 100%;
+  }
+
+  /* .contact {
+    margin-top: -10rem !important;
+  } */
+
+  .createGame {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: center;
+    align-items: center;
+    gap: 0rem 2rem;
+    padding: 0;
+    height: 50%;
+  }
+
+  /* Title and image occupy full row */
+  .createGame .main-logo {
+    grid-column: 1 / -1; /* span all columns */
+    justify-self: center;
+    align-self: center;
+    width: auto;
+    max-width: 100%;
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .createGame .title {
+    grid-column: 1 / -1;
+    justify-self: center;
+    align-self: center;
+    margin-top: -12rem;
+  }
+
+  .createGame .btn {
+    justify-self: center;
+    min-width: 12rem;
+    font-size: 1.25rem;
+    padding: 0.6rem 1.25rem;
+    width: 12rem;
+  }
+
+  /* .contact {
+    margin-right: 20rem;
+    margin-top: 2rem;
+  } */
+
+  .new-game-container {
+    margin-top: -18rem;
+  }
+}

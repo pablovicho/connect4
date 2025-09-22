@@ -38,7 +38,7 @@ export default function CreateGame() {
   };
 
   return (
-    <div className="menu">
+    <div className="createGame">
         <div className="title">
             <h1 className="titleName">Conecta 4</h1>
         </div>
