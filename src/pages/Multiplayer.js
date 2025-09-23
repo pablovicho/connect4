@@ -46,7 +46,6 @@ export default function Multiplayer() {
             const p = Number(search.get('p'));
             if (p === 1 || p === 2) {
                 useStore.setState({ thisGamePlayer: p });
-                // If player is determined via URL param, do not attempt server-based inference in this pass
                 return;
             }
         }
@@ -93,7 +92,7 @@ export default function Multiplayer() {
             </button>
           </div>
         )}
-        <p>Game ID: {gameId}. Player: {thisGamePlayer}. </p>
+        {/* <p>Game ID: {gameId}. Player: {thisGamePlayer}. </p> */}
         <MatrixMulti gameId={gameId} />
         <div className="title">
           <Return />
