@@ -30,10 +30,6 @@ export default function Multiplayer() {
       resetPlayer();
       resetWinner();
     };
-
-    useEffect(() => {
-      console.log(thisGamePlayer, gameId)
-    }, [thisGamePlayer, gameId]);
     
     useEffect(() => {
         if (!gameId && params.gameId) {
@@ -92,7 +88,6 @@ export default function Multiplayer() {
             </button>
           </div>
         )}
-        {/* <p>Game ID: {gameId}. Player: {thisGamePlayer}. </p> */}
         <MatrixMulti gameId={gameId} />
         <div className="title">
           <Return />

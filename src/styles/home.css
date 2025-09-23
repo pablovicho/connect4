@@ -161,8 +161,12 @@
   }
 
   .menu .title {
-    margin-top: 2rem;
-    margin-bottom: 4rem;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+  }
+
+  .menu > .title > .titleName {
+    font-size: 3rem;
   }
 
   .logo {
@@ -201,6 +205,10 @@
     grid-column: 1 / -1;
     justify-self: center;
     align-self: center;
+  }
+
+  .menu > .title > .titleName {
+    font-size: 2.5rem;
   }
 
   .contact {

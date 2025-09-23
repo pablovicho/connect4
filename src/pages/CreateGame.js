@@ -17,6 +17,7 @@ export default function CreateGame() {
         await navigator.clipboard.writeText(gameUrl);
         setIsCopied(true);
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error('Error creating game:', error);
       }
     };

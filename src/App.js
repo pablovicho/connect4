@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import Home from "./pages/Home";
 import SinglePlayer from "./pages/SinglePlayer";
 import Multiplayer from "./pages/Multiplayer";
@@ -13,14 +13,13 @@ function App() {
     <Router>
       <main>
         <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
+          <Route exact path="/" component={Home} />
           <Route path="/single" component={SinglePlayer} />
           <Route path="/create-game" component={CreateGame} />
           <Route path="/game/:gameId" component={Multiplayer} />
           <Route path="/join/:gameId" component={JoinGame} />
           <Route path="/about" component={About} />
+          <Redirect to="/" />
         </Switch>
       </main>
     </Router>

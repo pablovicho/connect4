@@ -9,7 +9,6 @@ import matrixUpdated from '../utils/updateMatrix';
 const MatrixMulti = ({ gameId }) => {
   const {winner, matrix, updateMatrix, changePlayer, checkWinner, player, thisGamePlayer} = useStore();
   const handleGameUpdate = useCallback((data) => {
-    // console.log('Updating matrix from subscription:', data);
     useStore.setState({ matrix: data.board });
     useStore.setState({ player: data.turn });
     checkWinner();
@@ -25,14 +24,12 @@ const MatrixMulti = ({ gameId }) => {
     const subscription = subscribeToGame(gameId, handleGameUpdate);
   
     return () => {
-      // console.log(`MatrixMulti: Cleaning up subscription for gameId ${gameId}`);
       subscription.unsubscribe();
     };
   }, [gameId, handleGameUpdate]);
 
   const handleClick = async (e, row) => {
     e.preventDefault();
-    console.log("player, thisGamePlayer, isSubmittingRef.current: ", player, thisGamePlayer, isSubmittingRef.current);
     if (player !== thisGamePlayer) return;
     // debounce
     if (isSubmittingRef.current) return;
@@ -60,6 +57,7 @@ const MatrixMulti = ({ gameId }) => {
         .eq('id', gameId);
 
       if (error) {
+        // eslint-disable-next-line no-console
         console.error('Error updating game:', error);
         return;
       } else {      

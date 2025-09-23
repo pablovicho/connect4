@@ -20,6 +20,7 @@ export default function JoinGame() {
           history.push(`/game/${gameId}?p=2`);
         }, 2000);
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error('Error joining game:', error);
         setError('No se pudo unir al juego. El ID del juego podría ser inválido.');
         setIsJoining(false);
