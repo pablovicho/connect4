@@ -32,6 +32,7 @@ const MatrixMulti = ({ gameId }) => {
 
   const handleClick = async (e, row) => {
     e.preventDefault();
+    console.log("player, thisGamePlayer, isSubmittingRef.current: ", player, thisGamePlayer, isSubmittingRef.current);
     if (player !== thisGamePlayer) return;
     // debounce
     if (isSubmittingRef.current) return;

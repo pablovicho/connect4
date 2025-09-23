@@ -87,6 +87,7 @@ main {
   justify-content: center;
   transition: background-color 0.15s ease, opacity 0.15s ease, transform 0.15s ease, height 0.15s ease, width 0.15s ease;
   transform-origin: left center;
+  z-index: 1000;
 }
 
 .back-button-img {

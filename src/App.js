@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Home from "./pages/Home";
-import Contact from "./components/Contact";
 import SinglePlayer from "./pages/SinglePlayer";
 import Multiplayer from "./pages/Multiplayer";
 import CreateGame from "./pages/CreateGame";

@@ -30,6 +30,10 @@ export default function Multiplayer() {
       resetPlayer();
       resetWinner();
     };
+
+    useEffect(() => {
+      console.log(thisGamePlayer, gameId)
+    }, [thisGamePlayer, gameId]);
     
     useEffect(() => {
         if (!gameId && params.gameId) {
