@@ -46,6 +46,8 @@ export default function Multiplayer() {
             const p = Number(search.get('p'));
             if (p === 1 || p === 2) {
                 useStore.setState({ thisGamePlayer: p });
+                // If player is determined via URL param, do not attempt server-based inference in this pass
+                return;
             }
         }
 
@@ -59,6 +61,11 @@ export default function Multiplayer() {
                         .select('slot')
                         .eq('game_id', gid);
                     if (error) return;
+
+                    // Re-check current state before applying, to avoid overwriting newer decisions
+                    const current = useStore.getState().thisGamePlayer;
+                    if (current !== null) return;
+
                     const slots = (data || []).map(r => r.slot);
                     if (slots.length === 1) {
                         const taken = slots[0];
