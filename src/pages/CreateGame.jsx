@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import createGame from '../utils/createGame';
 import '../styles/createGame.css';
 
 export default function CreateGame() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [gameId, setGameId] = useState(null);
   const [isCopied, setIsCopied] = useState(false);
 
@@ -35,7 +35,7 @@ export default function CreateGame() {
   }, [isCopied]);
 
   const handleStartGame = () => {
-    history.push(`/game/${gameId}?p=1`);
+    navigate(`/game/${gameId}?p=1`);
   };
 
   return (

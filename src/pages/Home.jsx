@@ -1,9 +1,9 @@
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Contact from "../components/Contact";
 import "../styles/home.css";
 
 export default function Home() {
-    const history = useHistory();
+    const navigate = useNavigate();
   
     return (
       <div className="home-root">
@@ -15,19 +15,19 @@ export default function Home() {
           <div className="menu-buttons">
               <button 
                 className="btn btn-primary" 
-                onClick={() => history.push('/single')}
+                onClick={() => navigate('/single')}
                 >
                 Solitario
               </button>
               <button 
                 className="btn btn-complimentary" 
-                onClick={() => history.push('/create-game')}
+                onClick={() => navigate('/create-game')}
                 >
                 Multijugador
               </button>
               <button 
                 className="btn btn-about" 
-                onClick={() => history.push('/about')}
+                onClick={() => navigate('/about')}
                 >
                 Reglas del juego
               </button>

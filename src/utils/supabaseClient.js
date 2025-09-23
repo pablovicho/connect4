@@ -1,10 +1,10 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 // Check if we're in development mode
-const isDevelopment = process.env.NODE_ENV === 'development' || window.location.hostname === 'localhost';
+const isDevelopment = import.meta.env.MODE === 'development' || window.location.hostname === 'localhost';
 
 // Import connection test utility in development
 if (isDevelopment) {
@@ -49,7 +49,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
         if (kind === 'error') {
           // eslint-disable-next-line no-console
           console.error('Realtime WebSocket error:', msg, data);
-        } else if (process.env.NODE_ENV === 'development') {
+        } else if (import.meta.env.MODE === 'development') {
           // eslint-disable-next-line no-console
           console.log(`Realtime [${kind}]:`, msg, data);
         }

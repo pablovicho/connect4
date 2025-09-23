@@ -1,9 +1,9 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../styles/about.css';
 
 const About = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     return (
         <div className="about">
             <div className="title" style={{ width: '9.5rem', alignSelf: 'center', justifyContent: 'center' }}>
@@ -18,7 +18,7 @@ const About = () => {
                 </ul>
                 <p className="gracias">¡Gracias por jugar!</p>
             </div>
-            <button className="btn btn-primary" style={{ padding: '0.5rem 0.4rem 0.2rem 0.4rem'}} onClick={() => history.push('/')}>
+            <button className="btn btn-primary" style={{ padding: '0.5rem 0.4rem 0.2rem 0.4rem'}} onClick={() => navigate('/')}>
                 <img src="/home.svg" alt="home" width="30px" height="30px" />
             </button>
         </div>

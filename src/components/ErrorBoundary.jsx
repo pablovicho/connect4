@@ -4,6 +4,7 @@ class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
     this.state = { hasError: false };
+    this.fallback = <p>⚠️ Hubo un error al cargar la página</p>;
   }
 
   static getDerivedStateFromError(error) {
@@ -31,7 +32,7 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       // Render the provided fallback UI
-      return this.props.fallback || null;
+      return this.fallback;
     }
 
     return this.props.children;
