@@ -6,7 +6,6 @@ function Contact() {
             className="logo"
             alt="github"
             src="/github.png"
-            style={{ height: "45px" }}
           ></img>
         </a>
         <a href="https://www.linkedin.com/in/pablovicho/" target="_blank" rel="noreferrer">

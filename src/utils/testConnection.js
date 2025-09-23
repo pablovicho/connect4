@@ -1,6 +1,7 @@
 import { supabase } from './supabaseClient';
 
 export const testRealtimeConnection = async () => {
+  // eslint-disable-next-line no-console
   console.log('🔍 Testing Supabase Realtime connection...');
   
   const results = {
@@ -13,8 +14,10 @@ export const testRealtimeConnection = async () => {
 
   try {
     // Test basic Supabase connection
+    // eslint-disable-next-line no-console
     console.log('1. Testing basic Supabase connection...');
     const { data, error } = await supabase.from('games').select('*').limit(1);
+    // eslint-disable-next-line no-console
     console.log('Data:', data);
     
     if (error) {
@@ -26,6 +29,7 @@ export const testRealtimeConnection = async () => {
     }
 
     // Test realtime connection
+    // eslint-disable-next-line no-console
     console.log('2. Testing WebSocket realtime connection...');
     
     const testChannel = supabase
@@ -35,9 +39,11 @@ export const testRealtimeConnection = async () => {
         }
       })
       .subscribe((status, err) => {
+        // eslint-disable-next-line no-console
         console.log(`Connection test status: ${status}`);
         
         if (err) {
+          // eslint-disable-next-line no-console
           console.error('❌ WebSocket connection error:', err);
           results.errors.push(`WebSocket error: ${err.message || JSON.stringify(err)}`);
           
@@ -56,52 +62,65 @@ export const testRealtimeConnection = async () => {
 
         switch (status) {
           case 'SUBSCRIBED':
+            // eslint-disable-next-line no-console
             console.log('✅ WebSocket connection established successfully');
             results.success = true;
             results.connectionDetails.websocketWorking = true;
             break;
           case 'CHANNEL_ERROR':
+            // eslint-disable-next-line no-console
             console.error('❌ Channel error occurred');
             results.errors.push('Channel error during subscription');
             break;
           case 'TIMED_OUT':
+            // eslint-disable-next-line no-console
             console.error('❌ Connection timed out');
             results.errors.push('WebSocket connection timed out');
             break;
           case 'CLOSED':
+            // eslint-disable-next-line no-console
             console.log('🔒 Channel was closed');
             break;
           default:
+            // eslint-disable-next-line no-console
             console.log(`ℹ️ Status: ${status}`);
         }
       });
 
     // Test for 10 seconds then cleanup
     setTimeout(() => {
+      // eslint-disable-next-line no-console
       console.log('3. Cleaning up test connection...');
       supabase.removeChannel(testChannel);
       
       // Print results
+      // eslint-disable-next-line no-console
       console.log('\n📋 Connection Test Results:');
+      // eslint-disable-next-line no-console
       console.log('==========================');
       console.log(`Success: ${results.success ? '✅' : '❌'}`);
       console.log(`Timestamp: ${results.timestamp}`);
       
       if (results.errors.length > 0) {
+        // eslint-disable-next-line no-console
         console.log('\nErrors:');
         results.errors.forEach(error => console.log(`  ❌ ${error}`));
       }
       
       if (results.warnings.length > 0) {
+        // eslint-disable-next-line no-console
         console.log('\nSuggestions:');
         results.warnings.forEach(warning => console.log(`  💡 ${warning}`));
       }
       
       if (results.connectionDetails.databaseWorking && results.connectionDetails.websocketWorking) {
+        // eslint-disable-next-line no-console
         console.log('\n🎉 All connections working! Your multiplayer game should work properly.');
       } else if (results.connectionDetails.databaseWorking && !results.connectionDetails.websocketWorking) {
+        // eslint-disable-next-line no-console
         console.log('\n⚠️ Database works but WebSocket is failing. This will prevent real-time updates.');
       } else {
+        // eslint-disable-next-line no-console
         console.log('\n🚨 Connection issues detected. Please check your Supabase configuration.');
       }
       
@@ -109,6 +128,7 @@ export const testRealtimeConnection = async () => {
     }, 10000);
 
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('❌ Unexpected error during connection test:', error);
     results.errors.push(`Unexpected error: ${error.message}`);
   }

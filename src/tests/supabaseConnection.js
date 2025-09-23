@@ -11,8 +11,8 @@ function TestConnection() {
           .limit(1);
         
         if (error) throw error;
-        // console.log('Connection successful! Data:', data);
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error('Connection failed:', error);
       }
     }

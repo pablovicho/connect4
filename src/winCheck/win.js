@@ -10,6 +10,7 @@ function whoWon(matrix) {
     diagonal(matrix) === 1 ||
     reverseDiagonal(matrix) === 1
   ) {
+    // eslint-disable-next-line no-console
     console.log(`¡Jugador 1 ganó!`);
     return 1;
   }
@@ -20,11 +21,13 @@ function whoWon(matrix) {
     diagonal(matrix) === 2 ||
     reverseDiagonal(matrix) === 2
   ) {
+    // eslint-disable-next-line no-console
     console.log(`¡Jugador 2 ganó!`);
     return 2;
   }
 
   if(matrix.every((row) => row.every((cell) => cell !== 0))) {
+    // eslint-disable-next-line no-console
     console.log(`¡Empate!`);
     return 3;
   }

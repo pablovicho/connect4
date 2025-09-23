@@ -9,8 +9,10 @@ const isDevelopment = process.env.NODE_ENV === 'development' || window.location.
 // Import connection test utility in development
 if (isDevelopment) {
   import('./testConnection.js').then(module => {
+    // eslint-disable-next-line no-console
     console.log('🔧 Connection test utility loaded. Run testSupabaseConnection() in console to test.');
   }).catch(err => {
+    // eslint-disable-next-line no-console
     console.warn('Failed to load connection test utility:', err);
   });
 }
@@ -45,8 +47,10 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
       },
       logger: (kind, msg, data) => {
         if (kind === 'error') {
+          // eslint-disable-next-line no-console
           console.error('Realtime WebSocket error:', msg, data);
         } else if (process.env.NODE_ENV === 'development') {
+          // eslint-disable-next-line no-console
           console.log(`Realtime [${kind}]:`, msg, data);
         }
       },

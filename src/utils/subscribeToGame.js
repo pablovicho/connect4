@@ -1,8 +1,6 @@
 import { supabase } from "./supabaseClient";
 
-function subscribeToGame(gameId, onUpdate) {
-  // console.log('Subscribing to game:', gameId);
-  
+function subscribeToGame(gameId, onUpdate) {  
   const channel = supabase
     .channel(`game:${gameId}`, {
       config: {
@@ -19,21 +17,15 @@ function subscribeToGame(gameId, onUpdate) {
         filter: `id=eq.${gameId}`
       },
       (payload) => {
-        // console.log('Change received:', payload);
         onUpdate(payload.new);
       }
     )
-    .subscribe(async (status, err) => {
-      // console.log(`Subscription status for game ${gameId}:`, status);
-      
+    .subscribe(async (status, err) => {      
       if (err) {
         console.error('Subscription error:', err);
-        
-        // Handle specific Cloudflare/WebSocket errors
         if (err.message && err.message.includes('__cf_bm')) {
           console.error('Cloudflare bot management is blocking the connection. This is common in development.');
           
-          // Attempt to retry subscription after a delay
           setTimeout(() => {
             console.log('Attempting to reconnect...');
             subscribeToGame(gameId, onUpdate);
@@ -44,7 +36,7 @@ function subscribeToGame(gameId, onUpdate) {
       
       if (status === 'SUBSCRIBED') {
         console.log(`✅ Successfully subscribed to game ${gameId}`);
-        // Immediately hydrate current state for late joiners
+        // Immediately hydrate current state to avoid missing initial state
         try {
           const { data, error } = await supabase
             .from('games')
@@ -69,7 +61,7 @@ function subscribeToGame(gameId, onUpdate) {
     });
 
   // Add channel state monitoring
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'local') {
     const monitorInterval = setInterval(() => {
       const state = channel.state;
       console.log(`Channel state for game ${gameId}:`, state);
@@ -78,8 +70,7 @@ function subscribeToGame(gameId, onUpdate) {
         console.log('Channel is in bad state, clearing monitor');
         clearInterval(monitorInterval);
       }
-    }, 30000); // Check every 30 seconds
-    
+    }, 30000);
     // Store the interval ID for cleanup
     channel._monitorInterval = monitorInterval;
   }
@@ -90,7 +81,6 @@ function subscribeToGame(gameId, onUpdate) {
       if (channel._monitorInterval) {
         clearInterval(channel._monitorInterval);
       }
-      
       return supabase.removeChannel(channel);
     }
   };
