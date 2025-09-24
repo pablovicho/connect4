@@ -1,5 +1,5 @@
 import React from "react";
-import "./../App";
+import "../App";
 import useStore from "../utils/store";
 
 export default function Circle(props) {

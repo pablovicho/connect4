@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import joinGame from '../utils/joinGame';
 import useStore from '../utils/store';
 
 export default function JoinGame() {
   const { gameId } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [isJoining, setIsJoining] = useState(true);
   const [error, setError] = useState(null);
 
@@ -17,7 +17,7 @@ export default function JoinGame() {
         useStore.setState({thisGamePlayer: 2});
         // Automatically redirect to the game after a short delay, carry slot in query
         setTimeout(() => {
-          history.push(`/game/${gameId}?p=2`);
+          navigate(`/game/${gameId}?p=2`);
         }, 2000);
       } catch (error) {
         // eslint-disable-next-line no-console
@@ -33,7 +33,7 @@ export default function JoinGame() {
       setError('No se proporcionó un ID de juego válido');
       setIsJoining(false);
     }
-  }, [gameId, history]);
+  }, [gameId, navigate]);
 
   return (
     <div className="menu">

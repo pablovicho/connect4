@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import "../styles/dialog.css";
 
 export function PopUpMultiplayer({ gameId }) {
@@ -7,11 +7,11 @@ export function PopUpMultiplayer({ gameId }) {
   const [isOpen, setIsOpen] = useState(true)
   const message = gameId ? "Comparte el vínculo con tu amigo/a para iniciar el juego" : "Iniciar juego";
   const url = window.location.href + "/multiplayer/" + gameId;
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleClose = (e) => {
     e.preventDefault();
-    history.push("/multiplayer/" + gameId);
+    navigate("/multiplayer/" + gameId);
     setIsOpen(false);
     dialogRef.current?.close();
   };
