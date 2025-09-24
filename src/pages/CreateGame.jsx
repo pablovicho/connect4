@@ -1,14 +1,19 @@
-import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import createGame from '../utils/createGame';
 import '../styles/createGame.css';
 
 export default function CreateGame() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [gameId, setGameId] = useState(null);
   const [isCopied, setIsCopied] = useState(false);
+  const createdRef = useRef(false);
 
   useEffect(() => {
+    // Guard against React 18 StrictMode double-invocation in dev
+    if (createdRef.current) return;
+    createdRef.current = true;
+
     const createNewGame = async () => {
       try {
         const newGameId = await createGame();
@@ -21,7 +26,7 @@ export default function CreateGame() {
         console.error('Error creating game:', error);
       }
     };
-    
+
     createNewGame();
   }, []);
 
@@ -35,7 +40,7 @@ export default function CreateGame() {
   }, [isCopied]);
 
   const handleStartGame = () => {
-    history.push(`/game/${gameId}?p=1`);
+    navigate(`/game/${gameId}?p=1`);
   };
 
   return (

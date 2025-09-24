@@ -1,12 +1,11 @@
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 function Return() {
-    const history = useHistory();
+    const navigate = useNavigate();
     return (
         <div className="return">
         <button 
             className="back-button"
-            onClick={() => history.push('/')}
-            >
+            onClick={() => navigate('/')}>
             <img src="/left.svg" alt="home" className="back-button-img" />
         </button>
         </div>
