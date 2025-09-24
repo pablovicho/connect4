@@ -66,3 +66,16 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     })
   }
 });
+
+// Ensure we have an auth session (anonymous if needed)
+export async function ensureAnonSession() {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) {
+    const { error } = await supabase.auth.signInAnonymously();
+    if (error) {
+      // eslint-disable-next-line no-console
+      console.error('Anonymous sign-in failed:', error);
+      throw error;
+    }
+  }
+}
