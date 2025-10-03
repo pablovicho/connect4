@@ -8,7 +8,7 @@ const isDevelopment = import.meta.env.MODE === 'development' || window.location.
 
 // Import connection test utility in development
 if (isDevelopment) {
-  import('./testConnection.js').then(module => {
+  import('../tests/testConnection.js').then(module => {
     // eslint-disable-next-line no-console
     console.log('🔧 Connection test utility loaded. Run testSupabaseConnection() in console to test.');
   }).catch(err => {

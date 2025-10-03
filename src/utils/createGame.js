@@ -7,8 +7,6 @@ async function createGame() {
 
   const { data: { user }, error: userErr } = await supabase.auth.getUser();
   if (userErr) throw userErr;
-
-  // Create game with owner_id_1 set
   const { data: game, error } = await supabase
     .from("games")
     .insert({ owner_id_1: user.id })
@@ -17,7 +15,6 @@ async function createGame() {
 
   if (error) throw error;
 
-  // Add player 1; I use upsert to avoid duplicates on (game_id, slot)
   const { error: p1Err } = await supabase
     .from("players")
     .upsert({ game_id: game.id, slot: 1, auth_id: user.id }, { onConflict: "game_id,slot" });
