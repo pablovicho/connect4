@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import joinGame from '../utils/joinGame';
 import useStore from '../utils/store';
@@ -8,8 +8,12 @@ export default function JoinGame() {
   const navigate = useNavigate();
   const [isJoining, setIsJoining] = useState(true);
   const [error, setError] = useState(null);
+  const startedRef = useRef(false);
 
   useEffect(() => {
+    if (startedRef.current) return; // prevent double run in StrictMode
+    startedRef.current = true;
+
     const joinExistingGame = async () => {
       try {
         const result = await joinGame(gameId);
