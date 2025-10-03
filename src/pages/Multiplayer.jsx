@@ -46,7 +46,6 @@ export default function Multiplayer() {
             }
         }
 
-        // Server-based fallback: if still not set and we have a gameId, infer open slot from players table
         if ((thisGamePlayer === null) && (params.gameId || gameId)) {
             (async () => {
                 const gid = params.gameId || gameId;
@@ -67,9 +66,7 @@ export default function Multiplayer() {
                         if (taken === 1) useStore.setState({ thisGamePlayer: 2 });
                         else if (taken === 2) useStore.setState({ thisGamePlayer: 1 });
                     }
-                    else if (slots.length === 0) {
-                        useStore.setState({ thisGamePlayer: 1 });
-                    }
+                    // When slots.length is 0 or 2, do nothing. Viewers will remain read-only.
                 } catch (_) {
                     // ignore
                 }
@@ -83,7 +80,7 @@ export default function Multiplayer() {
         {winner > 0 && <PopUpMessage className="transition duration-300 ease-in-out" />}
         {winner > 0 && (
           <div style={{ display: 'flex', justifyContent: 'center', margin: '0.5rem 0' }}>
-            <button className="btn btn-secondary" onClick={handleReset}>
+            <button className="btn btn-secondary" onClick={handleReset} disabled={thisGamePlayer === null}>
               Reiniciar
             </button>
           </div>
