@@ -20,11 +20,28 @@ const MatrixMulti = ({ gameId }) => {
     if (!gameId) {
       return;
     }
-    
-    const subscription = subscribeToGame(gameId, handleGameUpdate);
+    let isMounted = true;
+    let subscription = null;
+
+    (async () => {
+      try {
+        const sub = await subscribeToGame(gameId, handleGameUpdate);
+        if (!isMounted) {
+          sub?.unsubscribe?.();
+          return;
+        }
+        subscription = sub;
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error('Failed to initialize subscription:', e);
+      }
+    })();
   
     return () => {
-      subscription.unsubscribe();
+      isMounted = false;
+      if (subscription) {
+        subscription.unsubscribe();
+      }
     };
   }, [gameId, handleGameUpdate]);
 
