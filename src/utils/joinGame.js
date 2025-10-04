@@ -6,13 +6,19 @@ async function joinGame(gameId) {
   const { data: { user }, error: userErr } = await supabase.auth.getUser();
   if (userErr) throw userErr;
 
+  // Fetch game with owner_id_2 for viewer gating
   const { data: game, error: gameErr } = await supabase
     .from('games')
-    .select('id')
+    .select('id, owner_id_2')
     .eq('id', gameId)
     .maybeSingle();
   if (gameErr) throw gameErr;
   if (!game) throw new Error('Game not found');
+
+  // If another user already owns slot 2, route as viewer
+  if (game.owner_id_2 && game.owner_id_2 !== user.id) {
+    return { role: 'viewer' };
+  }
 
   const { data: existing, error: existingErr } = await supabase
     .from('players')
@@ -22,7 +28,19 @@ async function joinGame(gameId) {
     .maybeSingle();
   if (existingErr) throw existingErr;
 
+  // Helper to set owner_id_2 only if it is currently null
+  const ensureOwner2 = async () => {
+    const { error: setErr } = await supabase
+      .from('games')
+      .update({ owner_id_2: user.id })
+      .eq('id', gameId)
+      .is('owner_id_2', null);
+    if (setErr) throw setErr;
+  };
+
   if (existing && existing.auth_id === user.id) {
+    // Ensure game owner is set for slot 2
+    await ensureOwner2();
     return { role: 'player', slot: 2 };
   }
   if (existing && existing.auth_id && existing.auth_id !== user.id) {
@@ -38,6 +56,7 @@ async function joinGame(gameId) {
       .is('auth_id', null);
 
     if (claimErr) throw claimErr;
+    await ensureOwner2();
     return { role: 'player', slot: 2 };
   }
 
@@ -63,6 +82,7 @@ async function joinGame(gameId) {
         .maybeSingle();
       if (afterErr) throw afterErr;
       if (after && after.auth_id === user.id) {
+        await ensureOwner2();
         return { role: 'player', slot: 2 };
       }
       return { role: 'viewer' };
@@ -70,6 +90,8 @@ async function joinGame(gameId) {
     throw insertError;
   }
 
+  // Insert succeeded: set owner2 if missing
+  await ensureOwner2();
   return { role: 'player', slot: 2 };
 }
 

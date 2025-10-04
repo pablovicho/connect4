@@ -9,8 +9,7 @@ import matrixUpdated from '../utils/updateMatrix';
 const MatrixMulti = ({ gameId }) => {
   const {winner, matrix, updateMatrix, changePlayer, checkWinner, player, thisGamePlayer} = useStore();
   const handleGameUpdate = useCallback((data) => {
-    useStore.setState({ matrix: data.board });
-    useStore.setState({ player: data.turn });
+    useStore.setState({ matrix: data.board, player: data.turn });
     checkWinner();
   }, [checkWinner]);
 
